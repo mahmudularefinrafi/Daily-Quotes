@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily Quotes - Rafi</title>
   <style>
-    /* Reset & basic */
+    /* CSS ইনলাইন */
     * {
       box-sizing: border-box;
       margin: 0; padding: 0;
       font-family: 'Poppins', sans-serif;
     }
-
     body {
       background: #f9f9f9;
       color: #222;
@@ -22,7 +21,6 @@
       padding: 20px;
       transition: background 0.4s, color 0.4s;
     }
-
     .container {
       max-width: 600px;
       width: 100%;
@@ -34,7 +32,6 @@
       flex-direction: column;
       gap: 20px;
     }
-
     header h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 3rem;
@@ -42,14 +39,12 @@
       text-align: center;
       margin-bottom: 15px;
     }
-
     .lang-toggle {
       display: flex;
       justify-content: center;
       gap: 15px;
       margin-bottom: 15px;
     }
-
     .lang-toggle button {
       background: transparent;
       border: 2px solid #3b82f6;
@@ -61,13 +56,11 @@
       transition: all 0.3s ease;
       user-select: none;
     }
-
     .lang-toggle button.active,
     .lang-toggle button:hover {
       background: #3b82f6;
       color: white;
     }
-
     .quote-box {
       font-size: 1.5rem;
       font-weight: 600;
@@ -80,7 +73,6 @@
       justify-content: center;
       color: #111;
     }
-
     #quote-author {
       margin-top: 12px;
       font-size: 1rem;
@@ -89,13 +81,11 @@
       color: #555;
       font-style: normal;
     }
-
     .buttons {
       display: flex;
       justify-content: center;
       gap: 15px;
     }
-
     .buttons button {
       background: #3b82f6;
       border: none;
@@ -109,31 +99,26 @@
       flex: 1;
       max-width: 120px;
     }
-
     .buttons button:hover {
       background: #2563eb;
     }
-
     .favorites-section {
       margin-top: 25px;
       border-top: 1px solid #ddd;
       padding-top: 15px;
     }
-
     .favorites-section h2 {
       font-weight: 600;
       margin-bottom: 12px;
       text-align: center;
       color: #3b82f6;
     }
-
     #fav-list {
       list-style: none;
       max-height: 180px;
       overflow-y: auto;
       padding-right: 10px;
     }
-
     #fav-list li {
       background: #e0e7ff;
       margin-bottom: 8px;
@@ -143,11 +128,9 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     #fav-list li:hover {
       background: #c7d2fe;
     }
-
     #btn-clear-fav {
       margin-top: 8px;
       background: #ef4444;
@@ -157,11 +140,9 @@
       margin-right: auto;
       font-weight: 600;
     }
-
     #btn-clear-fav:hover {
       background: #b91c1c;
     }
-
     footer {
       font-size: 0.85rem;
       text-align: center;
@@ -169,76 +150,60 @@
       margin-top: 20px;
       user-select: none;
     }
-
     footer a {
       color: #3b82f6;
       text-decoration: none;
       font-weight: 600;
     }
-
     footer a:hover {
       text-decoration: underline;
     }
-
     /* Dark mode */
     body.dark-mode {
       background: #121212;
       color: #ddd;
     }
-
     body.dark-mode .container {
       background: #1f1f1f;
       box-shadow: 0 12px 25px rgba(255,255,255,0.1);
     }
-
     body.dark-mode .quote-box {
       color: #eee;
       border-left-color: #60a5fa;
     }
-
     body.dark-mode #quote-author {
       color: #bbb;
     }
-
     body.dark-mode .lang-toggle button {
       border-color: #60a5fa;
       color: #60a5fa;
     }
-
     body.dark-mode .lang-toggle button.active,
     body.dark-mode .lang-toggle button:hover {
       background: #60a5fa;
       color: #121212;
     }
-
     body.dark-mode .buttons button {
       background: #60a5fa;
     }
-
     body.dark-mode .buttons button:hover {
       background: #2563eb;
     }
-
     body.dark-mode .favorites-section h2 {
       color: #60a5fa;
     }
-
     body.dark-mode #fav-list li {
       background: #2563eb;
     }
-
     body.dark-mode #fav-list li:hover {
       background: #3b82f6;
     }
-
     body.dark-mode #btn-clear-fav {
       background: #dc2626;
     }
-
     body.dark-mode #btn-clear-fav:hover {
       background: #991b1b;
     }
-
     body.dark-mode footer {
       color: #bbb;
     }
@@ -283,6 +248,7 @@
   </div>
 
   <script>
+    // JS ইনলাইন
     const quotesEn = [
       { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
       { text: "Don't let yesterday take up too much of today.", author: "Will Rogers" },
@@ -405,10 +371,9 @@
           favorites.splice(idx, 1);
           saveFavorites();
           renderFavorites();
-          if (quotesEn.includes(q) || quotesBn.includes(q)) {
-            if (q.text === quoteText.textContent.replace(/"/g, '')) {
-              btnFav.textContent = "❤️";
-            }
+          // আপডেট বাটনের হার্ট আইকন
+          if (q.text === quoteText.textContent.replace(/"/g, '')) {
+            btnFav.textContent = "❤️";
           }
         });
         favList.appendChild(li);
