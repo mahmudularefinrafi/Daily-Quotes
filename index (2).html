@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily Quotes - Rafi</title>
   <style>
-    /* CSS ইনলাইন */
+    /* ====== CSS ====== */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script&display=swap');
+
     * {
       box-sizing: border-box;
       margin: 0; padding: 0;
@@ -38,6 +40,7 @@
       color: #3b82f6;
       text-align: center;
       margin-bottom: 15px;
+      user-select: none;
     }
     .lang-toggle {
       display: flex;
@@ -72,6 +75,7 @@
       flex-direction: column;
       justify-content: center;
       color: #111;
+      user-select: text;
     }
     #quote-author {
       margin-top: 12px;
@@ -101,47 +105,6 @@
     }
     .buttons button:hover {
       background: #2563eb;
-    }
-    .favorites-section {
-      margin-top: 25px;
-      border-top: 1px solid #ddd;
-      padding-top: 15px;
-    }
-    .favorites-section h2 {
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-align: center;
-      color: #3b82f6;
-    }
-    #fav-list {
-      list-style: none;
-      max-height: 180px;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-    #fav-list li {
-      background: #e0e7ff;
-      margin-bottom: 8px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    #fav-list li:hover {
-      background: #c7d2fe;
-    }
-    #btn-clear-fav {
-      margin-top: 8px;
-      background: #ef4444;
-      max-width: 150px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      font-weight: 600;
-    }
-    #btn-clear-fav:hover {
-      background: #b91c1c;
     }
     footer {
       font-size: 0.85rem;
@@ -189,66 +152,43 @@
     body.dark-mode .buttons button:hover {
       background: #2563eb;
     }
-    body.dark-mode .favorites-section h2 {
-      color: #60a5fa;
-    }
-    body.dark-mode #fav-list li {
-      background: #2563eb;
-    }
-    body.dark-mode #fav-list li:hover {
-      background: #3b82f6;
-    }
-    body.dark-mode #btn-clear-fav {
-      background: #dc2626;
-    }
-    body.dark-mode #btn-clear-fav:hover {
-      background: #991b1b;
-    }
     body.dark-mode footer {
       color: #bbb;
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
+  <div class="container" role="main" aria-label="Daily Quotes App">
     <header>
       <h1>Daily Quotes</h1>
-      <div class="lang-toggle">
-        <button id="btn-en" class="active">English</button>
-        <button id="btn-bn">বাংলা</button>
+      <div class="lang-toggle" role="group" aria-label="Select language">
+        <button id="btn-en" class="active" aria-pressed="true">English</button>
+        <button id="btn-bn" aria-pressed="false">বাংলা</button>
       </div>
     </header>
 
     <main>
-      <div id="quote-box" class="quote-box">
+      <div id="quote-box" class="quote-box" aria-live="polite" aria-atomic="true">
         <p id="quote-text">Loading quotes...</p>
         <p id="quote-author"></p>
       </div>
 
       <div class="buttons">
-        <button id="btn-new">New Quote</button>
-        <button id="btn-fav" title="Add to Favorites">❤️</button>
-        <button id="btn-share" title="Copy Quote">📋</button>
-        <button id="btn-theme" title="Toggle Dark/Light Mode">🌙</button>
+        <button id="btn-new" aria-label="New Quote">New Quote</button>
+        <button id="btn-fav" aria-label="Add to Favorites">❤️</button>
+        <button id="btn-share" aria-label="Copy Quote">📋</button>
+        <button id="btn-theme" aria-label="Toggle Dark Mode">🌙</button>
       </div>
-
-      <section class="favorites-section">
-        <h2>Favorites</h2>
-        <ul id="fav-list"></ul>
-        <button id="btn-clear-fav">Clear Favorites</button>
-      </section>
     </main>
 
     <footer>
-      Developed by Mahmudul Arefin Rafi  
-      <br />
+      Developed by Mahmudul Arefin Rafi<br />
       <a href="https://web.facebook.com/mahmudul.arefin.rafi.bics" target="_blank" rel="noopener">Follow on Facebook</a>
     </footer>
   </div>
 
   <script>
-    // JS ইনলাইন
+    // ===== JavaScript =====
     const quotesEn = [
       { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
       { text: "Don't let yesterday take up too much of today.", author: "Will Rogers" },
@@ -285,8 +225,6 @@
     const btnFav = document.getElementById("btn-fav");
     const btnShare = document.getElementById("btn-share");
     const btnTheme = document.getElementById("btn-theme");
-    const favList = document.getElementById("fav-list");
-    const btnClearFav = document.getElementById("btn-clear-fav");
     const btnEn = document.getElementById("btn-en");
     const btnBn = document.getElementById("btn-bn");
 
@@ -321,7 +259,9 @@
       if (currentLang === lang) return;
       currentLang = lang;
       btnEn.classList.toggle("active", lang === "en");
+      btnEn.setAttribute("aria-pressed", lang === "en");
       btnBn.classList.toggle("active", lang === "bn");
+      btnBn.setAttribute("aria-pressed", lang === "bn");
       currentQuoteIndex = -1;
       newQuote();
     }
@@ -350,34 +290,22 @@
       } else {
         favorites = [];
       }
-      renderFavorites();
+      updateFavButton();
     }
 
     function saveFavorites() {
       localStorage.setItem("dailyQuotesFavorites", JSON.stringify(favorites));
     }
 
-    function renderFavorites() {
-      favList.innerHTML = "";
-      if (favorites.length === 0) {
-        favList.innerHTML = "<li>No favorites yet.</li>";
+    function updateFavButton() {
+      const quotesList = getQuotesList();
+      const currentQuote = quotesList[currentQuoteIndex];
+      if (!currentQuote) {
+        btnFav.textContent = "❤️";
         return;
       }
-      favorites.forEach((q, idx) => {
-        const li = document.createElement("li");
-        li.textContent = `"${q.text}" — ${q.author}`;
-        li.title = "Click to remove from favorites";
-        li.addEventListener("click", () => {
-          favorites.splice(idx, 1);
-          saveFavorites();
-          renderFavorites();
-          // আপডেট বাটনের হার্ট আইকন
-          if (q.text === quoteText.textContent.replace(/"/g, '')) {
-            btnFav.textContent = "❤️";
-          }
-        });
-        favList.appendChild(li);
-      });
+      const favIndex = favorites.findIndex(q => q.text === currentQuote.text);
+      btnFav.textContent = favIndex === -1 ? "❤️" : "💔";
     }
 
     function toggleFavorite() {
@@ -387,12 +315,13 @@
       const favIndex = favorites.findIndex(q => q.text === currentQuote.text);
       if (favIndex === -1) {
         favorites.push(currentQuote);
+        alert("Added to favorites!");
       } else {
         favorites.splice(favIndex, 1);
+        alert("Removed from favorites!");
       }
       saveFavorites();
-      renderFavorites();
-      showQuote(currentQuote);
+      updateFavButton();
     }
 
     function copyQuote() {
@@ -404,20 +333,15 @@
       });
     }
 
+    // Event listeners
     btnNew.addEventListener("click", newQuote);
     btnFav.addEventListener("click", toggleFavorite);
     btnShare.addEventListener("click", copyQuote);
     btnTheme.addEventListener("click", toggleTheme);
     btnEn.addEventListener("click", () => toggleLanguage("en"));
     btnBn.addEventListener("click", () => toggleLanguage("bn"));
-    btnClearFav.addEventListener("click", () => {
-      if (confirm("Are you sure you want to clear all favorites?")) {
-        favorites = [];
-        saveFavorites();
-        renderFavorites();
-      }
-    });
 
+    // On load
     window.onload = () => {
       loadTheme();
       loadFavorites();
