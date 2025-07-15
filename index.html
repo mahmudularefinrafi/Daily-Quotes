@@ -3,350 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily Quotes - Rafi</title>
+  <title>Daily Quotes</title>
   <style>
-    /* ====== CSS ====== */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script&display=swap');
-
-    * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
     body {
-      background: #f9f9f9;
-      color: #222;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      transition: background 0.4s, color 0.4s;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; margin: 0;
     }
     .container {
-      max-width: 600px;
-      width: 100%;
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
       padding: 30px 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    header h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3rem;
-      color: #3b82f6;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 600px;
       text-align: center;
-      margin-bottom: 15px;
-      user-select: none;
     }
-    .lang-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 15px;
+    h1 {
+      color: #3498db;
+      font-weight: normal;
+      font-family: 'Segoe Script', cursive;
+      margin-bottom: 30px;
     }
-    .lang-toggle button {
-      background: transparent;
-      border: 2px solid #3b82f6;
-      padding: 8px 18px;
-      font-weight: 600;
-      color: #3b82f6;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      user-select: none;
-    }
-    .lang-toggle button.active,
-    .lang-toggle button:hover {
-      background: #3b82f6;
-      color: white;
-    }
-    .quote-box {
-      font-size: 1.5rem;
-      font-weight: 600;
+    #quote {
+      font-size: 1.4rem;
       font-style: italic;
-      border-left: 5px solid #3b82f6;
-      padding-left: 20px;
-      min-height: 110px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      color: #111;
-      user-select: text;
+      color: #333;
+      min-height: 80px;
+      margin-bottom: 15px;
     }
-    #quote-author {
-      margin-top: 12px;
+    #author {
       font-size: 1rem;
-      font-weight: 400;
-      text-align: right;
       color: #555;
-      font-style: normal;
+      margin-bottom: 25px;
     }
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-    .buttons button {
-      background: #3b82f6;
+    button {
+      background: #3498db;
       border: none;
       color: white;
-      font-size: 1.25rem;
       padding: 10px 16px;
-      border-radius: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.3s ease;
-      user-select: none;
-      flex: 1;
-      max-width: 120px;
     }
-    .buttons button:hover {
-      background: #2563eb;
-    }
-    footer {
-      font-size: 0.85rem;
-      text-align: center;
-      color: #888;
-      margin-top: 20px;
-      user-select: none;
-    }
-    footer a {
-      color: #3b82f6;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-    /* Dark mode */
-    body.dark-mode {
-      background: #121212;
-      color: #ddd;
-    }
-    body.dark-mode .container {
-      background: #1f1f1f;
-      box-shadow: 0 12px 25px rgba(255,255,255,0.1);
-    }
-    body.dark-mode .quote-box {
-      color: #eee;
-      border-left-color: #60a5fa;
-    }
-    body.dark-mode #quote-author {
-      color: #bbb;
-    }
-    body.dark-mode .lang-toggle button {
-      border-color: #60a5fa;
-      color: #60a5fa;
-    }
-    body.dark-mode .lang-toggle button.active,
-    body.dark-mode .lang-toggle button:hover {
-      background: #60a5fa;
-      color: #121212;
-    }
-    body.dark-mode .buttons button {
-      background: #60a5fa;
-    }
-    body.dark-mode .buttons button:hover {
-      background: #2563eb;
-    }
-    body.dark-mode footer {
-      color: #bbb;
+    button:hover {
+      background: #2980b9;
     }
   </style>
 </head>
 <body>
-  <div class="container" role="main" aria-label="Daily Quotes App">
-    <header>
-      <h1>Daily Quotes</h1>
-      <div class="lang-toggle" role="group" aria-label="Select language">
-        <button id="btn-en" class="active" aria-pressed="true">English</button>
-        <button id="btn-bn" aria-pressed="false">বাংলা</button>
-      </div>
-    </header>
 
-    <main>
-      <div id="quote-box" class="quote-box" aria-live="polite" aria-atomic="true">
-        <p id="quote-text">Loading quotes...</p>
-        <p id="quote-author"></p>
-      </div>
-
-      <div class="buttons">
-        <button id="btn-new" aria-label="New Quote">New Quote</button>
-        <button id="btn-fav" aria-label="Add to Favorites">❤️</button>
-        <button id="btn-share" aria-label="Copy Quote">📋</button>
-        <button id="btn-theme" aria-label="Toggle Dark Mode">🌙</button>
-      </div>
-    </main>
-
-    <footer>
-      Developed by Mahmudul Arefin Rafi<br />
-      <a href="https://web.facebook.com/mahmudul.arefin.rafi.bics" target="_blank" rel="noopener">Follow on Facebook</a>
-    </footer>
+  <div class="container">
+    <h1>Daily Quotes</h1>
+    <div id="quote">Loading...</div>
+    <div id="author"></div>
+    <button id="newQuoteBtn">New Quote</button>
   </div>
 
   <script>
-    // ===== JavaScript =====
-    const quotesEn = [
+    const quotes = [
       { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
       { text: "Don't let yesterday take up too much of today.", author: "Will Rogers" },
       { text: "Success is not final; failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
-      { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
-      { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-      { text: "Act as if what you do makes a difference. It does.", author: "William James" },
-      { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
-      { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
-      { text: "Keep your face always toward the sunshine—and shadows will fall behind you.", author: "Walt Whitman" },
-      { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" }
+      { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" }
     ];
 
-    const quotesBn = [
-      { text: "শুরু করার সেরা উপায় হলো কথা বলা বন্ধ করে কাজ করা।", author: "ওয়াল্ট ডিজনি" },
-      { text: "গতকালের চিন্তা আজকের সময়কে বেশি না নষ্ট করো।", author: "উইল রজার্স" },
-      { text: "সাফল্য চূড়ান্ত নয়; ব্যর্থতা মারাত্মক নয়: চালিয়ে যাওয়ার সাহসই আসল।", author: "উইনস্টন চার্চিল" },
-      { text: "কঠিন সময় সাধারণ মানুষকে অসাধারণ গন্তব্যের জন্য প্রস্তুত করে।", author: "সি.এস. লুইস" },
-      { text: "বিশ্বাস করো তুমি পারবে এবং তুমি ইতিমধ্যেই অর্ধেক পথ পাড়ি দিয়েছ।", author: "থিওডোর রুজভেল্ট" },
-      { text: "তুমি যা করো তা অর্থ রাখে, সেটা করো।", author: "উইলিয়াম জেমস" },
-      { text: "বড় স্বপ্ন দেখো এবং ফেল করার ভয় করো না।", author: "নরম্যান ভন" },
-      { text: "ঘড়ির দিকে তাকিও না; যা করে তাই করো। চলতেই থাকো।", author: "স্যাম লেভেনসন" },
-      { text: "সদা সূর্যের দিকে মুখ করো — ছায়া পিছনে থাকবে।", author: "ওয়াল্ট হুইটম্যান" },
-      { text: "আগামীকালের স্বপ্ন বাস্তবায়নের একমাত্র বাধা আজকের সন্দেহ।", author: "ফ্রাঙ্কলিন ডি. রুজভেল্ট" }
-    ];
-
-    let currentLang = "en";
-    let currentQuoteIndex = -1;
-    let favorites = [];
-
-    const quoteText = document.getElementById("quote-text");
-    const quoteAuthor = document.getElementById("quote-author");
-    const btnNew = document.getElementById("btn-new");
-    const btnFav = document.getElementById("btn-fav");
-    const btnShare = document.getElementById("btn-share");
-    const btnTheme = document.getElementById("btn-theme");
-    const btnEn = document.getElementById("btn-en");
-    const btnBn = document.getElementById("btn-bn");
-
-    function getQuotesList() {
-      return currentLang === "en" ? quotesEn : quotesBn;
-    }
-
-    function getRandomQuote() {
-      const quotesList = getQuotesList();
-      if (quotesList.length === 0) return null;
-      let idx;
-      do {
-        idx = Math.floor(Math.random() * quotesList.length);
-      } while (idx === currentQuoteIndex && quotesList.length > 1);
-      currentQuoteIndex = idx;
-      return quotesList[idx];
-    }
-
-    function showQuote(quote) {
-      if (!quote) return;
-      quoteText.textContent = `"${quote.text}"`;
-      quoteAuthor.textContent = `— ${quote.author}`;
-      btnFav.textContent = favorites.some(q => q.text === quote.text) ? "💔" : "❤️";
-    }
+    const quoteEl = document.getElementById('quote');
+    const authorEl = document.getElementById('author');
+    const btn = document.getElementById('newQuoteBtn');
 
     function newQuote() {
-      const quote = getRandomQuote();
-      showQuote(quote);
+      const index = Math.floor(Math.random() * quotes.length);
+      quoteEl.textContent = `"${quotes[index].text}"`;
+      authorEl.textContent = `— ${quotes[index].author}`;
     }
 
-    function toggleLanguage(lang) {
-      if (currentLang === lang) return;
-      currentLang = lang;
-      btnEn.classList.toggle("active", lang === "en");
-      btnEn.setAttribute("aria-pressed", lang === "en");
-      btnBn.classList.toggle("active", lang === "bn");
-      btnBn.setAttribute("aria-pressed", lang === "bn");
-      currentQuoteIndex = -1;
-      newQuote();
-    }
+    btn.addEventListener('click', newQuote);
 
-    function toggleTheme() {
-      document.body.classList.toggle("dark-mode");
-      const isDark = document.body.classList.contains("dark-mode");
-      btnTheme.textContent = isDark ? "☀️" : "🌙";
-      localStorage.setItem("dailyQuotesTheme", isDark ? "dark" : "light");
-    }
-
-    function loadTheme() {
-      const savedTheme = localStorage.getItem("dailyQuotesTheme");
-      if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        btnTheme.textContent = "☀️";
-      } else {
-        btnTheme.textContent = "🌙";
-      }
-    }
-
-    function loadFavorites() {
-      const fav = localStorage.getItem("dailyQuotesFavorites");
-      if (fav) {
-        favorites = JSON.parse(fav);
-      } else {
-        favorites = [];
-      }
-      updateFavButton();
-    }
-
-    function saveFavorites() {
-      localStorage.setItem("dailyQuotesFavorites", JSON.stringify(favorites));
-    }
-
-    function updateFavButton() {
-      const quotesList = getQuotesList();
-      const currentQuote = quotesList[currentQuoteIndex];
-      if (!currentQuote) {
-        btnFav.textContent = "❤️";
-        return;
-      }
-      const favIndex = favorites.findIndex(q => q.text === currentQuote.text);
-      btnFav.textContent = favIndex === -1 ? "❤️" : "💔";
-    }
-
-    function toggleFavorite() {
-      const quotesList = getQuotesList();
-      const currentQuote = quotesList[currentQuoteIndex];
-      if (!currentQuote) return;
-      const favIndex = favorites.findIndex(q => q.text === currentQuote.text);
-      if (favIndex === -1) {
-        favorites.push(currentQuote);
-        alert("Added to favorites!");
-      } else {
-        favorites.splice(favIndex, 1);
-        alert("Removed from favorites!");
-      }
-      saveFavorites();
-      updateFavButton();
-    }
-
-    function copyQuote() {
-      const textToCopy = `${quoteText.textContent} ${quoteAuthor.textContent}`;
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        alert("Quote copied to clipboard!");
-      }).catch(() => {
-        alert("Failed to copy!");
-      });
-    }
-
-    // Event listeners
-    btnNew.addEventListener("click", newQuote);
-    btnFav.addEventListener("click", toggleFavorite);
-    btnShare.addEventListener("click", copyQuote);
-    btnTheme.addEventListener("click", toggleTheme);
-    btnEn.addEventListener("click", () => toggleLanguage("en"));
-    btnBn.addEventListener("click", () => toggleLanguage("bn"));
-
-    // On load
     window.onload = () => {
-      loadTheme();
-      loadFavorites();
       newQuote();
     };
   </script>
+
 </body>
 </html>
