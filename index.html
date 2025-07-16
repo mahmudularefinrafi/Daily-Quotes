@@ -1,267 +1,389 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
+head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Digital Diary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Quotes</title>
+  <title>Daily Quotes - Rafi</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #333;
+    /* ====== CSS ====== */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
     }
-    body.dark {
-      background: #121212;
-      color: #eee;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; margin: 0;
+      background: #f9f9f9;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      transition: background 0.4s, color 0.4s;
     }
     .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 15px;
-    }
-    .card {
-      background: #fff;
-      padding: 25px;
-      margin: 20px 0;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    body.dark .card {
-      background: #1e1e1e;
-    }
-    .hidden {
-      display: none;
-    }
-    .center {
-      max-width: 400px;
-      margin: 80px auto;
-      text-align: center;
-    }
-    input, select, textarea {
+      max-width: 600px;
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      margin-bottom: 10px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
-    body.dark input, body.dark textarea, body.dark select {
-      background: #2a2a2a;
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #3b82f6;
+      text-align: center;
+      margin-bottom: 15px;
+      user-select: none;
+    }
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .lang-toggle button {
+      background: transparent;
+      border: 2px solid #3b82f6;
+      padding: 8px 18px;
+      font-weight: 600;
+      color: #3b82f6;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    h1 {
+      color: #3498db;
+      font-weight: normal;
+      font-family: 'Segoe Script', cursive;
+      margin-bottom: 30px;
+    .lang-toggle button.active,
+    .lang-toggle button:hover {
+      background: #3b82f6;
       color: white;
-      border: 1px solid #555;
     }
-    textarea {
-      resize: vertical;
-      height: 180px;
+    #quote {
+      font-size: 1.4rem;
+    .quote-box {
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-style: italic;
+      color: #333;
+      min-height: 80px;
+      margin-bottom: 15px;
+      border-left: 5px solid #3b82f6;
+      padding-left: 20px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #111;
+      user-select: text;
+    }
+    #author {
+    #quote-author {
+      margin-top: 12px;
+      font-size: 1rem;
+      font-weight: 400;
+      text-align: right;
+      color: #555;
+      margin-bottom: 25px;
+      font-style: normal;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
     }
     button {
-      padding: 10px 20px;
       background: #3498db;
+    .buttons button {
+      background: #3b82f6;
       border: none;
-      border-radius: 8px;
       color: white;
+      font-size: 1.25rem;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border-radius: 12px;
       cursor: pointer;
-      font-size: 16px;
-      margin-right: 10px;
-      margin-top: 10px;
+      transition: background 0.3s ease;
+      user-select: none;
+      flex: 1;
+      max-width: 120px;
     }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    button:hover {
+      background: #2980b9;
+    .buttons button:hover {
+      background: #2563eb;
     }
-    ul#entries {
-      list-style: none;
-      padding: 0;
+    footer {
+      font-size: 0.85rem;
+      text-align: center;
+      color: #888;
+      margin-top: 20px;
+      user-select: none;
     }
-    ul#entries li {
-      background: #f1f1f1;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      white-space: pre-wrap;
+    footer a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
     }
-    body.dark ul#entries li {
-      background: #2e2e2e;
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Dark mode */
+    body.dark-mode {
+      background: #121212;
+      color: #ddd;
+    }
+    body.dark-mode .container {
+      background: #1f1f1f;
+      box-shadow: 0 12px 25px rgba(255,255,255,0.1);
+    }
+    body.dark-mode .quote-box {
+      color: #eee;
+      border-left-color: #60a5fa;
+    }
+    body.dark-mode #quote-author {
+      color: #bbb;
+    }
+    body.dark-mode .lang-toggle button {
+      border-color: #60a5fa;
+      color: #60a5fa;
+    }
+    body.dark-mode .lang-toggle button.active,
+    body.dark-mode .lang-toggle button:hover {
+      background: #60a5fa;
+      color: #121212;
+    }
+    body.dark-mode .buttons button {
+      background: #60a5fa;
+    }
+    body.dark-mode .buttons button:hover {
+      background: #2563eb;
+    }
+    body.dark-mode footer {
+      color: #bbb;
     }
   </style>
 </head>
 <body>
-
-  <div id="lock-screen" class="card center">
-    <h2 id="pin-msg">🔐 আপনার পিন দিন</h2>
-    <input type="password" id="pin-input" placeholder="PIN লিখুন" />
-    <button onclick="checkPIN()">Unlock</button>
-  </div>
-
-  <div id="app" class="container hidden">
-    <div class="header">
-      <h1>📝 Digital Diary</h1>
-      <div>
-        <button onclick="toggleDarkMode()">🌗</button>
-        <button onclick="requestNotification()">🔔</button>
+  <div class="container" role="main" aria-label="Daily Quotes App">
+    <header>
+      <h1>Daily Quotes</h1>
+      <div class="lang-toggle" role="group" aria-label="Select language">
+        <button id="btn-en" class="active" aria-pressed="true">English</button>
+        <button id="btn-bn" aria-pressed="false">বাংলা</button>
       </div>
-    </div>
+    </header>
 
-    <div class="card">
-      <label for="entry-date">📅 তারিখ</label>
-      <input type="date" id="entry-date" />
+    <main>
+      <div id="quote-box" class="quote-box" aria-live="polite" aria-atomic="true">
+        <p id="quote-text">Loading quotes...</p>
+        <p id="quote-author"></p>
+      </div>
 
-      <label for="mood">😊 মুড</label>
-      <select id="mood">
-        <option value="">-- বেছে নিন --</option>
-        <option value="😊">😊 আনন্দিত</option>
-        <option value="😢">😢 দুঃখিত</option>
-        <option value="😡">😡 রাগান্বিত</option>
-        <option value="😴">😴 ক্লান্ত</option>
-      </select>
+  <div class="container">
+    <h1>Daily Quotes</h1>
+    <div id="quote">Loading...</div>
+    <div id="author"></div>
+    <button id="newQuoteBtn">New Quote</button>
+      <div class="buttons">
+        <button id="btn-new" aria-label="New Quote">New Quote</button>
+        <button id="btn-fav" aria-label="Add to Favorites">❤️</button>
+        <button id="btn-share" aria-label="Copy Quote">📋</button>
+        <button id="btn-theme" aria-label="Toggle Dark Mode">🌙</button>
+      </div>
+    </main>
 
-      <label for="entry-text">✍️ আজকের অনুভূতি</label>
-      <textarea id="entry-text" placeholder="আপনার ডায়েরি লিখুন..."></textarea>
-
-      <button onclick="saveEntry()">💾 সেভ</button>
-      <button onclick="exportText()">⬇️ .txt ডাউনলোড</button>
-      <button onclick="exportPDF()">📄 PDF তৈরি</button>
-    </div>
-
-    <div class="card">
-      <h2>📚 পুরাতন এন্ট্রি</h2>
-      <input type="text" id="search-box" placeholder="🔍 তারিখ/মুড দিয়ে খুঁজুন..." oninput="filterEntries()" />
-      <ul id="entries"></ul>
-    </div>
+    <footer>
+      Developed by Mahmudul Arefin Rafi<br />
+      <a href="https://web.facebook.com/mahmudul.arefin.rafi.bics" target="_blank" rel="noopener">Follow on Facebook</a>
+    </footer>
   </div>
-
-  <!-- html2canvas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    let entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
+    const quotes = [
+    // ===== JavaScript =====
+    const quotesEn = [
+      { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+      { text: "Don't let yesterday take up too much of today.", author: "Will Rogers" },
+      { text: "Success is not final; failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+      { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" }
+      { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
+      { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+      { text: "Act as if what you do makes a difference. It does.", author: "William James" },
+      { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
+      { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+      { text: "Keep your face always toward the sunshine—and shadows will fall behind you.", author: "Walt Whitman" },
+      { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" }
+    ];
 
-    function checkPIN() {
-      const pin = document.getElementById("pin-input").value;
-      const savedPIN = localStorage.getItem("userPIN");
+    const quotesBn = [
+      { text: "শুরু করার সেরা উপায় হলো কথা বলা বন্ধ করে কাজ করা।", author: "ওয়াল্ট ডিজনি" },
+      { text: "গতকালের চিন্তা আজকের সময়কে বেশি না নষ্ট করো।", author: "উইল রজার্স" },
+      { text: "সাফল্য চূড়ান্ত নয়; ব্যর্থতা মারাত্মক নয়: চালিয়ে যাওয়ার সাহসই আসল।", author: "উইনস্টন চার্চিল" },
+      { text: "কঠিন সময় সাধারণ মানুষকে অসাধারণ গন্তব্যের জন্য প্রস্তুত করে।", author: "সি.এস. লুইস" },
+      { text: "বিশ্বাস করো তুমি পারবে এবং তুমি ইতিমধ্যেই অর্ধেক পথ পাড়ি দিয়েছ।", author: "থিওডোর রুজভেল্ট" },
+      { text: "তুমি যা করো তা অর্থ রাখে, সেটা করো।", author: "উইলিয়াম জেমস" },
+      { text: "বড় স্বপ্ন দেখো এবং ফেল করার ভয় করো না।", author: "নরম্যান ভন" },
+      { text: "ঘড়ির দিকে তাকিও না; যা করে তাই করো। চলতেই থাকো।", author: "স্যাম লেভেনসন" },
+      { text: "সদা সূর্যের দিকে মুখ করো — ছায়া পিছনে থাকবে।", author: "ওয়াল্ট হুইটম্যান" },
+      { text: "আগামীকালের স্বপ্ন বাস্তবায়নের একমাত্র বাধা আজকের সন্দেহ।", author: "ফ্রাঙ্কলিন ডি. রুজভেল্ট" }
+    ];
 
-      if (!savedPIN) {
-        if (pin.length < 4) return alert("PIN কমপক্ষে ৪ ডিজিট হতে হবে!");
-        localStorage.setItem("userPIN", pin);
-        alert("✅ PIN সেট সম্পন্ন!");
-        unlockApp();
-      } else if (pin === savedPIN) {
-        unlockApp();
+    const quoteEl = document.getElementById('quote');
+    const authorEl = document.getElementById('author');
+    const btn = document.getElementById('newQuoteBtn');
+    let currentLang = "en";
+    let currentQuoteIndex = -1;
+    let favorites = [];
+
+    const quoteText = document.getElementById("quote-text");
+    const quoteAuthor = document.getElementById("quote-author");
+    const btnNew = document.getElementById("btn-new");
+    const btnFav = document.getElementById("btn-fav");
+    const btnShare = document.getElementById("btn-share");
+    const btnTheme = document.getElementById("btn-theme");
+    const btnEn = document.getElementById("btn-en");
+    const btnBn = document.getElementById("btn-bn");
+
+    function getQuotesList() {
+      return currentLang === "en" ? quotesEn : quotesBn;
+    }
+
+    function getRandomQuote() {
+      const quotesList = getQuotesList();
+      if (quotesList.length === 0) return null;
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * quotesList.length);
+      } while (idx === currentQuoteIndex && quotesList.length > 1);
+      currentQuoteIndex = idx;
+      return quotesList[idx];
+    }
+
+    function showQuote(quote) {
+      if (!quote) return;
+      quoteText.textContent = `"${quote.text}"`;
+      quoteAuthor.textContent = `— ${quote.author}`;
+      btnFav.textContent = favorites.some(q => q.text === quote.text) ? "💔" : "❤️";
+    }
+
+    function newQuote() {
+      const index = Math.floor(Math.random() * quotes.length);
+      quoteEl.textContent = `"${quotes[index].text}"`;
+      authorEl.textContent = `— ${quotes[index].author}`;
+      const quote = getRandomQuote();
+      showQuote(quote);
+    }
+
+    function toggleLanguage(lang) {
+      if (currentLang === lang) return;
+      currentLang = lang;
+      btnEn.classList.toggle("active", lang === "en");
+      btnEn.setAttribute("aria-pressed", lang === "en");
+      btnBn.classList.toggle("active", lang === "bn");
+      btnBn.setAttribute("aria-pressed", lang === "bn");
+      currentQuoteIndex = -1;
+      newQuote();
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      btnTheme.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("dailyQuotesTheme", isDark ? "dark" : "light");
+    }
+
+    function loadTheme() {
+      const savedTheme = localStorage.getItem("dailyQuotesTheme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        btnTheme.textContent = "☀️";
       } else {
-        alert("❌ ভুল PIN!");
+        btnTheme.textContent = "🌙";
       }
     }
 
-    function unlockApp() {
-      document.getElementById("lock-screen").classList.add("hidden");
-      document.getElementById("app").classList.remove("hidden");
-      applyTheme();
-      setToday();
-      showEntries();
-      scheduleNotification();
+    function loadFavorites() {
+      const fav = localStorage.getItem("dailyQuotesFavorites");
+      if (fav) {
+        favorites = JSON.parse(fav);
+      } else {
+        favorites = [];
+      }
+      updateFavButton();
     }
 
-    function setToday() {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById("entry-date").value = today;
+    function saveFavorites() {
+      localStorage.setItem("dailyQuotesFavorites", JSON.stringify(favorites));
     }
 
-    function saveEntry() {
-      const date = document.getElementById("entry-date").value;
-      const mood = document.getElementById("mood").value;
-      const text = document.getElementById("entry-text").value.trim();
-
-      if (!date || !text) return alert("তারিখ ও অনুভূতি লিখুন!");
-
-      entries.push({ date, mood, text });
-      localStorage.setItem("diaryEntries", JSON.stringify(entries));
-      document.getElementById("entry-text").value = "";
-      showEntries();
+    btn.addEventListener('click', newQuote);
+    function updateFavButton() {
+      const quotesList = getQuotesList();
+      const currentQuote = quotesList[currentQuoteIndex];
+      if (!currentQuote) {
+        btnFav.textContent = "❤️";
+        return;
+      }
+      const favIndex = favorites.findIndex(q => q.text === currentQuote.text);
+      btnFav.textContent = favIndex === -1 ? "❤️" : "💔";
     }
 
-    function showEntries(filter = "") {
-      const ul = document.getElementById("entries");
-      ul.innerHTML = "";
-      entries.filter(e =>
-        e.date.includes(filter) || (e.mood && e.mood.includes(filter)) || e.text.includes(filter)
-      ).forEach(e => {
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${e.date}</strong> ${e.mood}<br>${e.text}`;
-        ul.appendChild(li);
+    function toggleFavorite() {
+      const quotesList = getQuotesList();
+      const currentQuote = quotesList[currentQuoteIndex];
+      if (!currentQuote) return;
+      const favIndex = favorites.findIndex(q => q.text === currentQuote.text);
+      if (favIndex === -1) {
+        favorites.push(currentQuote);
+        alert("Added to favorites!");
+      } else {
+        favorites.splice(favIndex, 1);
+        alert("Removed from favorites!");
+      }
+      saveFavorites();
+      updateFavButton();
+    }
+
+    function copyQuote() {
+      const textToCopy = `${quoteText.textContent} ${quoteAuthor.textContent}`;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Quote copied to clipboard!");
+      }).catch(() => {
+        alert("Failed to copy!");
       });
     }
 
-    function filterEntries() {
-      const search = document.getElementById("search-box").value.trim();
-      showEntries(search);
-    }
+    // Event listeners
+    btnNew.addEventListener("click", newQuote);
+    btnFav.addEventListener("click", toggleFavorite);
+    btnShare.addEventListener("click", copyQuote);
+    btnTheme.addEventListener("click", toggleTheme);
+    btnEn.addEventListener("click", () => toggleLanguage("en"));
+    btnBn.addEventListener("click", () => toggleLanguage("bn"));
 
-    function exportText() {
-      const content = entries.map(e => `📅 ${e.date} ${e.mood}\n${e.text}`).join('\n\n-----------\n\n');
-      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "digital-diary.txt";
-      a.click();
-    }
-
-    async function exportPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const list = document.getElementById("entries");
-      await html2canvas(list, { scale: 2 }).then(canvas => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdfWidth = doc.internal.pageSize.getWidth();
-        const pdfHeight = canvas.height * pdfWidth / canvas.width;
-        doc.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
-        doc.save("digital-diary.pdf");
-      });
-    }
-
-    function toggleDarkMode() {
-      const dark = document.body.classList.toggle("dark");
-      localStorage.setItem("theme", dark ? "dark" : "light");
-    }
-
-    function applyTheme() {
-      if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
-      }
-    }
-
-    function requestNotification() {
-      if (Notification.permission === "granted") {
-        alert("🔔 ইতোমধ্যে অনুমতি দেওয়া আছে");
-      } else {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            alert("✅ Notification অনুমোদিত");
-          }
-        });
-      }
-    }
-
-    function scheduleNotification() {
-      if (Notification.permission === "granted") {
-        setTimeout(() => {
-          new Notification("📝 আজকের ডায়েরি লিখেছেন?", {
-            body: "সময় করে আজকের অনুভূতি লিখে রাখুন!",
-          });
-        }, 5000); // ৫ সেকেন্ড পরে (পরীক্ষার জন্য)
-      }
-    }
-
-    window.onload = function () {
-      const savedPIN = localStorage.getItem("userPIN");
-      if (!savedPIN) {
-        document.getElementById("pin-msg").innerText = "🔐 প্রথমবার পিন সেট করুন";
-      }
+    // On load
+    window.onload = () => {
+      loadTheme();
+      loadFavorites();
+      newQuote();
     };
   </script>
 
